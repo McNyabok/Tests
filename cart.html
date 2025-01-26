@@ -1,0 +1,22 @@
+<script>
+    const cart = [];
+
+    function addToCart(product, price) {
+        const item = cart.find(item => item.product === product);
+        if (item) {
+            item.quantity += 1;
+        } else {
+            cart.push({ product, price, quantity: 1 });
+        }
+        updateCartView();
+    }
+
+    function updateCartView() {
+        const cartContainer = document.getElementById('cart-items');
+        cartContainer.innerHTML = cart.map(item =>
+            `<div>${item.product} - $${item.price} x ${item.quantity}</div>`
+        ).join('');
+        const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        document.getElementById('cart-total').innerText = `Total: $${total}`;
+    }
+</script>
